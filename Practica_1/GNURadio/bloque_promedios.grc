@@ -1,0 +1,97 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: bloque_promedios
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: '32000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 12]
+    rotation: 0
+    state: enabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"\nEmbedded Python Blocks:\n\nEach time this file is saved,\
+      \ GRC will instantiate the first class it finds\nto get ports and parameters\
+      \ of your block. The arguments to __init__  will\nbe the parameters. All of\
+      \ them are required to have default values!\n\"\"\"\n\nimport numpy as np\n\
+      from gnuradio import gr\nclass blk (gr.sync_block ):\n\n    def __init__ ( self\
+      \ ) : # only default arguments here\n\tgr.sync_block.__init__ (\n\t\t\tself\
+      \ ,\n\t\t\tname =\u2019 Promedios_de_tiempos \u2019, # will show up in GRC\n\
+      \t\t\tin_sig =[ np.float32 ],\n\t\t\tout_sig =[ np.float32 ,np.float32 ,np.float32\
+      \ ,np.float32 ,np.float32 ]\n\t\t)\n\t\tself.acum_anterior = 0\n\t\tself.Ntotales\
+      \ = 0\n\t\tself.acum_anterior1 = 0\n\t\tself.acum_anterior2 = 0\n\t\t\n\tdef\
+      \ work (self , input_items , output_items ):\n\t    x = input_items [0] # Senial\
+      \ de entrada .\n\t    y0 = output_items [0] # Promedio de la senial\n\t    y1\
+      \ = output_items [1] # Media de la senial\n\t    y2 = output_items [2] # RMS\
+      \ de la senial\n\t    y3 = output_items [3] # Potencia promedio de la senial\n\
+      \t    y4 = output_items [4] # Desviacion estandar de la senial\n\t\t\n     \
+      \ \t\t# Calculo del promedio\n\t    N = len (x)\n\t    self.Ntotales = self.Ntotales\
+      \ + N\n\t    acumulado = self.acum_anterior + np. cumsum (x)\n\t    self.acum_anterior\
+      \ = acumulado [N -1]\n\t    y0 [:]= acumulado / self.Ntotales\n\t\t\n\t\t# Calculo\
+      \ de la media cuadratica\n\t    x2=np.multiply (x,x)\n\t    acumulado1 = self.acum_anterior1\
+      \ + np.cumsum (x2)\n\t    self.acum_anterior1 = acumulado [N -1]\n\t    y1 [:]\
+      \ = acumulado1 / self.Ntotales\n\t\t\n\t\t# Calculo de la RMS\n\t    y2 [:]\
+      \ = np.sqrt (y1)\n\t\t\n\t\t# Calculo de la potencia promedio\n\t    y3 [:]\
+      \ = np.multiply (y2 ,y2)\n\t\t\n\t\t# Calculo de la desviacion estandar\n\t\
+      \    x3 = np.multiply (x-y0 ,x-y0)\n\t    acumulado2 = self.acum_anterior2 +\
+      \ np.cumsum (x3)\n\t    self.acum_anterior2 = acumulado2 [N -1]\n\t    y4 [:]\
+      \ = np.sqrt ( acumulado2 / self.Ntotales )\n\t\t\n\t    return len (x)\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    example_param: '1.0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    _io_cache: ('Embedded Python Block', 'blk', [('example_param', '1.0')], [('0',
+      'complex', 1)], [('0', 'complex', 1)], 'Embedded Python Block example - a simple
+      multiply const', ['example_param'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [600, 364.0]
+    rotation: 0
+    state: true
+connections: []
+
+metadata:
+  file_format: 1
+  grc_version: 3.9.8.0
