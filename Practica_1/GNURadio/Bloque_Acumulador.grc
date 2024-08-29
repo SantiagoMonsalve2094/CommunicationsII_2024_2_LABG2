@@ -52,23 +52,21 @@ blocks:
       \ GRC will instantiate the first class it finds\nto get ports and parameters\
       \ of your block. The arguments to __init__  will\nbe the parameters. All of\
       \ them are required to have default values!\n\"\"\"\nimport numpy as np\nfrom\
-      \ gnuradio import gr\nclass blk (gr. sync_block ):\n\tdef __init__ ( self )\
-      \ : # only default arguments here\n\t\tgr. sync_block . __init__ (\n\t\t\tself\
-      \ ,\n\t\t\tname =\u2019e_Acum \u2019, # will show up in GRC\n\t\t\tin_sig =[\
-      \ np. float32 ],\n\t\t\tout_sig =[ np. float32 ]\n\t\t)\n\t\t\n\tdef work (self\
-      \ , input_items , output_items ):\n\t\tx = input_items [0] # Senial de entrada\
-      \ .\n\t\ty0 = output_items [0] # Senial acumulada\n\t\ty0 [:] = np. cumsum (x)\n\
-      \t\treturn len (y)\n"
+      \ gnuradio import gr\n\nclass blk(gr.sync_block):\n    def __init__(self): \
+      \ # only default arguments here\n        gr.sync_block.__init__(\n         \
+      \   self,\n            name='e_Acum',  # will show up in GRC\n            in_sig=[np.float32],\n\
+      \            out_sig=[np.float32]\n        )\n\n    def work(self, input_items,\
+      \ output_items):\n        x = input_items[0]  # Se\xF1al de entrada.\n     \
+      \   y0 = output_items[0]  # Se\xF1al acumulada\n        y0[:] = np.cumsum(x)\n\
+      \        return len(x)\n\n"
     affinity: ''
     alias: Bloque_Acumulador
     comment: ''
-    example_param: '1.0'
     maxoutbuf: '0'
     minoutbuf: '0'
   states:
-    _io_cache: ('Embedded Python Block', 'blk', [('example_param', '1.0')], [('0',
-      'complex', 1)], [('0', 'complex', 1)], 'Embedded Python Block example - a simple
-      multiply const', ['example_param'])
+    _io_cache: ('e_Acum', 'blk', [], [('0', 'float', 1)], [('0', 'float', 1)], '',
+      [])
     bus_sink: false
     bus_source: false
     bus_structure: null
