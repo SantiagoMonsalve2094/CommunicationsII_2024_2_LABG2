@@ -6,38 +6,25 @@
 #
 # GNU Radio Python Flow Graph
 # Title: Practica_2
-# GNU Radio version: 3.9.8.0
-
-from distutils.version import StrictVersion
-
-if __name__ == '__main__':
-    import ctypes
-    import sys
-    if sys.platform.startswith('linux'):
-        try:
-            x11 = ctypes.cdll.LoadLibrary('libX11.so')
-            x11.XInitThreads()
-        except:
-            print("Warning: failed to XInitThreads()")
+# GNU Radio version: 3.10.9.2
 
 from PyQt5 import Qt
 from gnuradio import qtgui
-from gnuradio.filter import firdes
-import sip
 from gnuradio import analog
 from gnuradio import gr
+from gnuradio.filter import firdes
 from gnuradio.fft import window
 import sys
 import signal
+from PyQt5 import Qt
 from argparse import ArgumentParser
 from gnuradio.eng_arg import eng_float, intx
 from gnuradio import eng_notation
-import E3TRadio
 import bloque_promedios_epy_block_0 as epy_block_0  # embedded python block
+import bloque_promedios_epy_block_1 as epy_block_1  # embedded python block
+import sip
 
 
-
-from gnuradio import qtgui
 
 class bloque_promedios(gr.top_block, Qt.QWidget):
 
@@ -48,8 +35,8 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
         qtgui.util.check_set_qss()
         try:
             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
-        except:
-            pass
+        except BaseException as exc:
+            print(f"Qt GUI: Could not set Icon: {str(exc)}", file=sys.stderr)
         self.top_scroll_layout = Qt.QVBoxLayout()
         self.setLayout(self.top_scroll_layout)
         self.top_scroll = Qt.QScrollArea()
@@ -65,12 +52,11 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
         self.settings = Qt.QSettings("GNU Radio", "bloque_promedios")
 
         try:
-            if StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
-                self.restoreGeometry(self.settings.value("geometry").toByteArray())
-            else:
-                self.restoreGeometry(self.settings.value("geometry"))
-        except:
-            pass
+            geometry = self.settings.value("geometry")
+            if geometry:
+                self.restoreGeometry(geometry)
+        except BaseException as exc:
+            print(f"Qt GUI: Could not restore geometry: {str(exc)}", file=sys.stderr)
 
         ##################################################
         # Variables
@@ -80,17 +66,18 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
         ##################################################
         # Blocks
         ##################################################
+
         self.qtgui_freq_sink_x_1 = qtgui.freq_sink_f(
             1024, #size
             window.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
             samp_rate, #bw
-            "", #name
+            "Ruido", #name
             1,
             None # parent
         )
         self.qtgui_freq_sink_x_1.set_update_time(0.10)
-        self.qtgui_freq_sink_x_1.set_y_axis(-140, 10)
+        self.qtgui_freq_sink_x_1.set_y_axis((-140), 10)
         self.qtgui_freq_sink_x_1.set_y_label('Relative Gain', 'dB')
         self.qtgui_freq_sink_x_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, 0.0, 0, "")
         self.qtgui_freq_sink_x_1.enable_autoscale(False)
@@ -128,12 +115,12 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
             window.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
             samp_rate, #bw
-            "", #name
+            "Señal sin ruido", #name
             1,
             None # parent
         )
         self.qtgui_freq_sink_x_0_0.set_update_time(0.10)
-        self.qtgui_freq_sink_x_0_0.set_y_axis(-140, 10)
+        self.qtgui_freq_sink_x_0_0.set_y_axis((-140), 10)
         self.qtgui_freq_sink_x_0_0.set_y_label('Relative Gain', 'dB')
         self.qtgui_freq_sink_x_0_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, 0.0, 0, "")
         self.qtgui_freq_sink_x_0_0.enable_autoscale(False)
@@ -171,12 +158,12 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
             window.WIN_BLACKMAN_hARRIS, #wintype
             0, #fc
             samp_rate, #bw
-            "", #name
+            "Señal con ruido", #name
             1,
             None # parent
         )
         self.qtgui_freq_sink_x_0.set_update_time(0.10)
-        self.qtgui_freq_sink_x_0.set_y_axis(-140, 10)
+        self.qtgui_freq_sink_x_0.set_y_axis((-140), 10)
         self.qtgui_freq_sink_x_0.set_y_label('Relative Gain', 'dB')
         self.qtgui_freq_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, 0.0, 0, "")
         self.qtgui_freq_sink_x_0.enable_autoscale(False)
@@ -209,6 +196,7 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
 
         self._qtgui_freq_sink_x_0_win = sip.wrapinstance(self.qtgui_freq_sink_x_0.qwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_freq_sink_x_0_win)
+        self.epy_block_1 = epy_block_1.blk()
         self.epy_block_0 = epy_block_0.blk()
         self.analog_sig_source_x_0 = analog.sig_source_f(samp_rate, analog.GR_SIN_WAVE, 1000, 1, 0, 0)
         self.analog_noise_source_x_0 = analog.noise_source_f(analog.GR_GAUSSIAN, 0.5, 0)
@@ -344,7 +332,6 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
         self.Media.enable_autoscale(False)
         self._Media_win = sip.wrapinstance(self.Media.qwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._Media_win)
-        self.E3TRadio_sumador_0 = E3TRadio.sumador()
         self.Desviacion_estandar = qtgui.number_sink(
             gr.sizeof_float,
             0,
@@ -383,17 +370,17 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.E3TRadio_sumador_0, 0), (self.epy_block_0, 0))
-        self.connect((self.E3TRadio_sumador_0, 0), (self.qtgui_freq_sink_x_0, 0))
-        self.connect((self.analog_noise_source_x_0, 0), (self.E3TRadio_sumador_0, 1))
+        self.connect((self.analog_noise_source_x_0, 0), (self.epy_block_1, 1))
         self.connect((self.analog_noise_source_x_0, 0), (self.qtgui_freq_sink_x_1, 0))
-        self.connect((self.analog_sig_source_x_0, 0), (self.E3TRadio_sumador_0, 0))
+        self.connect((self.analog_sig_source_x_0, 0), (self.epy_block_1, 0))
         self.connect((self.analog_sig_source_x_0, 0), (self.qtgui_freq_sink_x_0_0, 0))
         self.connect((self.epy_block_0, 4), (self.Desviacion_estandar, 0))
         self.connect((self.epy_block_0, 0), (self.Media, 0))
         self.connect((self.epy_block_0, 1), (self.Media_cuadratica, 0))
         self.connect((self.epy_block_0, 3), (self.Potencia_promedio, 0))
         self.connect((self.epy_block_0, 2), (self.RMS, 0))
+        self.connect((self.epy_block_1, 0), (self.epy_block_0, 0))
+        self.connect((self.epy_block_1, 0), (self.qtgui_freq_sink_x_0, 0))
 
 
     def closeEvent(self, event):
@@ -419,9 +406,6 @@ class bloque_promedios(gr.top_block, Qt.QWidget):
 
 def main(top_block_cls=bloque_promedios, options=None):
 
-    if StrictVersion("4.5.0") <= StrictVersion(Qt.qVersion()) < StrictVersion("5.0.0"):
-        style = gr.prefs().get_string('qtgui', 'style', 'raster')
-        Qt.QApplication.setGraphicsSystem(style)
     qapp = Qt.QApplication(sys.argv)
 
     tb = top_block_cls()
