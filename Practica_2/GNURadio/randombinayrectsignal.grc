@@ -73,7 +73,7 @@ blocks:
   id: variable
   parameters:
     comment: ''
-    value: np.array([1,1,1,1,1,1,1,1])
+    value: np.array([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
   states:
     bus_sink: false
     bus_source: false
@@ -141,7 +141,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [274, 127]
+    coordinate: [208, 104.0]
     rotation: 0
     state: enabled
 - name: analog_noise_source_x_0
@@ -160,7 +160,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [792, 258]
+    coordinate: [784, 216.0]
     rotation: 0
     state: true
 - name: analog_random_source_x_0
@@ -180,9 +180,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [9, 147]
+    coordinate: [16, 112.0]
     rotation: 0
-    state: true
+    state: disabled
 - name: blocks_add_xx_0
   id: blocks_add_xx
   parameters:
@@ -215,7 +215,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [146, 172]
+    coordinate: [208, 168.0]
     rotation: 0
     state: true
 - name: blocks_complex_to_mag_squared_0
@@ -231,9 +231,31 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [578, 644]
+    coordinate: [616, 648.0]
     rotation: 0
     state: true
+- name: blocks_file_source_1
+  id: blocks_file_source
+  parameters:
+    affinity: ''
+    alias: ''
+    begin_tag: pmt.PMT_NIL
+    comment: ''
+    file: /home/comu2_grupob1/CommunicationsII_2024_2_LABG2/Practica_2/GNURadio/sonido.wav
+    length: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    offset: '0'
+    repeat: 'True'
+    type: byte
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [32, 256.0]
+    rotation: 0
+    state: enabled
 - name: blocks_multiply_const_vxx_0
   id: blocks_multiply_const_vxx
   parameters:
@@ -249,7 +271,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [479, 143]
+    coordinate: [528, 128.0]
     rotation: 0
     state: enabled
 - name: blocks_multiply_const_vxx_1
@@ -267,7 +289,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [869, 639]
+    coordinate: [1000, 640.0]
     rotation: 0
     state: true
 - name: blocks_null_sink_0
@@ -302,7 +324,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [238, 646]
+    coordinate: [240, 656.0]
     rotation: 0
     state: true
 - name: blocks_throttle_0
@@ -321,9 +343,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [851, 175]
+    coordinate: [912, 128.0]
     rotation: 0
     state: true
+- name: blocks_unpack_k_bits_bb_0
+  id: blocks_unpack_k_bits_bb
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    k: '8'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [248, 288.0]
+    rotation: 0
+    state: enabled
 - name: epy_block_0
   id: epy_block
   parameters:
@@ -348,7 +386,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [729, 646]
+    coordinate: [808, 648.0]
     rotation: 0
     state: true
 - name: fft_vxx_0
@@ -369,7 +407,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [377, 610]
+    coordinate: [408, 616.0]
     rotation: 0
     state: true
 - name: import_0
@@ -401,7 +439,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [673, 166]
+    coordinate: [704, 120.0]
     rotation: 0
     state: enabled
 - name: note_0
@@ -666,7 +704,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1069, 584]
+    coordinate: [1264, 596.0]
     rotation: 0
     state: true
 - name: virtual_sink_0_1
@@ -679,7 +717,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [237, 245]
+    coordinate: [376.0, 288]
     rotation: 270
     state: true
 - name: virtual_sink_0_1_0
@@ -692,7 +730,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1008, 261]
+    coordinate: [1064.0, 208]
     rotation: 270
     state: enabled
 - name: virtual_sink_0_1_0_0
@@ -705,7 +743,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [951, 332]
+    coordinate: [976.0, 304]
     rotation: 270
     state: enabled
 - name: virtual_source_0
@@ -713,7 +751,7 @@ blocks:
   parameters:
     alias: ''
     comment: ''
-    stream_id: p5
+    stream_id: p4
   states:
     bus_sink: false
     bus_source: false
@@ -726,7 +764,7 @@ blocks:
   parameters:
     alias: ''
     comment: ''
-    stream_id: p4
+    stream_id: p5
   states:
     bus_sink: false
     bus_source: false
@@ -743,10 +781,12 @@ connections:
 - [blocks_char_to_float_0, '0', blocks_add_xx_0, '1']
 - [blocks_char_to_float_0, '0', virtual_sink_0_1, '0']
 - [blocks_complex_to_mag_squared_0, '0', epy_block_0, '0']
+- [blocks_file_source_1, '0', blocks_unpack_k_bits_bb_0, '0']
 - [blocks_multiply_const_vxx_0, '0', interp_fir_filter_xxx_0, '0']
 - [blocks_multiply_const_vxx_1, '0', qtgui_vector_sink_f_0, '0']
 - [blocks_stream_to_vector_0, '0', fft_vxx_0, '0']
 - [blocks_throttle_0, '0', virtual_sink_0_1_0, '0']
+- [blocks_unpack_k_bits_bb_0, '0', blocks_char_to_float_0, '0']
 - [epy_block_0, '0', blocks_multiply_const_vxx_1, '0']
 - [fft_vxx_0, '0', blocks_complex_to_mag_squared_0, '0']
 - [interp_fir_filter_xxx_0, '0', blocks_throttle_0, '0']
