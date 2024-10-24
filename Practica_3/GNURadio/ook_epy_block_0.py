@@ -3,7 +3,7 @@ from gnuradio import gr
 import math
 
 class blk(gr.sync_block):  
-    """This block is a RF VCO and works as following: ….."""
+    """This block is a RF VCO and works as following: Este código sirve para modular una señal binaria en OOK versión RF, se le definen 2 entradas que son la señal binaria a modular A y el desfase Q, además se define la frecuencia del carry y la tasa de muestreo. Por último se realiza la modulación teniendo en cuenta el desfase, la frecuencia del carry, la tasa de muestreo, la amplitud y se retorna la longitud del array de salida.  """
 
     def __init__(self, fc=128000, samp_rate=320000):  
         gr.sync_block.__init__(

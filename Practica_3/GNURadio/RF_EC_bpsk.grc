@@ -163,7 +163,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    const: np.pi/2
+    const: '1'
     maxoutbuf: '0'
     minoutbuf: '0'
     type: float
@@ -271,7 +271,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    const: math.pi
+    const: math.pi/2
     maxoutbuf: '0'
     minoutbuf: '0'
     type: float
@@ -280,16 +280,21 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [798, 174]
+    coordinate: [800, 208.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: epy_block_0
   id: epy_block
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\nimport math\n\nclass\
       \ blk(gr.sync_block):  \n    \"\"\"This block is a RF VCO and works as following:\
-      \ \u2026..\"\"\"\n\n    def __init__(self, fc=128000, samp_rate=320000):  \n\
-      \        gr.sync_block.__init__(\n            self,\n            name='e_RF_VCO_ff',\
+      \ Este c\xF3digo sirve para modular una se\xF1al binaria en OOK versi\xF3n RF,\
+      \ se le definen 2 entradas que son la se\xF1al binaria a modular A y el desfase\
+      \ Q, adem\xE1s se define la frecuencia del carry y la tasa de muestreo. Por\
+      \ \xFAltimo se realiza la modulaci\xF3n teniendo en cuenta el desfase, la frecuencia\
+      \ del carry, la tasa de muestreo, la amplitud y se retorna la longitud del array\
+      \ de salida.  \"\"\"\n\n    def __init__(self, fc=128000, samp_rate=320000):\
+      \  \n        gr.sync_block.__init__(\n            self,\n            name='e_RF_VCO_ff',\
       \   \n            in_sig=[np.float32, np.float32],\n            out_sig=[np.float32]\n\
       \        )\n        self.fc = fc\n        self.samp_rate = samp_rate\n     \
       \   self.n_m=0\n\n    def work(self, input_items, output_items):\n        A=input_items[0]\n\
@@ -307,7 +312,12 @@ blocks:
   states:
     _io_cache: "('e_RF_VCO_ff', 'blk', [('fc', '128000'), ('samp_rate', '320000')],\
       \ [('0', 'float', 1), ('1', 'float', 1)], [('0', 'float', 1)], 'This block is\
-      \ a RF VCO and works as following: \u2026..', ['fc', 'samp_rate'])"
+      \ a RF VCO and works as following: Este c\xF3digo sirve para modular una se\xF1\
+      al binaria en OOK versi\xF3n RF, se le definen 2 entradas que son la se\xF1\
+      al binaria a modular A y el desfase Q, adem\xE1s se define la frecuencia del\
+      \ carry y la tasa de muestreo. Por \xFAltimo se realiza la modulaci\xF3n teniendo\
+      \ en cuenta el desfase, la frecuencia del carry, la tasa de muestreo, la amplitud\
+      \ y se retorna la longitud del array de salida.  ', ['fc', 'samp_rate'])"
     bus_sink: false
     bus_source: false
     bus_structure: null
@@ -319,12 +329,17 @@ blocks:
   parameters:
     _source_code: "import numpy as np\nfrom gnuradio import gr\nimport math\n\nclass\
       \ blk(gr.sync_block):  \n    \"\"\"This block is a CE VCO or baseband VCO and\
-      \ works as following: \u2026..\"\"\"\n\n    def __init__(self,):  \n       \
-      \ gr.sync_block.__init__(\n            self,\n            name='e_CE_VCO_fc',\
-      \   \n            in_sig=[np.float32, np.float32],\n            out_sig=[np.complex64]\n\
-      \        )\n        \n    def work(self, input_items, output_items):\n     \
-      \   A=input_items[0]\n        Q=input_items[1]\n        y=output_items[0]\n\
-      \        N=len(A)\n        y[:]=A*np.exp(1j*Q)\n        return len(output_items[0])\n"
+      \ works as following: Este c\xF3digo sirve para modular una se\xF1al binaria,\
+      \ esta modulaci\xF3n consta de dos entradas, una es la se\xF1al de entrada A\
+      \ y la otra es el desfase Q. La modulaci\xF3n se realiza mediante la multiplicaci\xF3\
+      n de la entrada por una exponencial compleja que es manipulada por el desfase\
+      \ Q. Por \xFAltimo se retorna la longitud del array de salida\"\"\"\n\n    def\
+      \ __init__(self,):  \n        gr.sync_block.__init__(\n            self,\n \
+      \           name='e_CE_VCO_fc',   \n            in_sig=[np.float32, np.float32],\n\
+      \            out_sig=[np.complex64]\n        )\n        \n    def work(self,\
+      \ input_items, output_items):\n        A=input_items[0]\n        Q=input_items[1]\n\
+      \        y=output_items[0]\n        N=len(A)\n        y[:]=A*np.exp(1j*Q)\n\
+      \        return len(output_items[0])\n"
     affinity: ''
     alias: ''
     comment: ''
@@ -333,7 +348,11 @@ blocks:
   states:
     _io_cache: "('e_CE_VCO_fc', 'blk', [], [('0', 'float', 1), ('1', 'float', 1)],\
       \ [('0', 'complex', 1)], 'This block is a CE VCO or baseband VCO and works as\
-      \ following: \u2026..', [])"
+      \ following: Este c\xF3digo sirve para modular una se\xF1al binaria, esta modulaci\xF3\
+      n consta de dos entradas, una es la se\xF1al de entrada A y la otra es el desfase\
+      \ Q. La modulaci\xF3n se realiza mediante la multiplicaci\xF3n de la entrada\
+      \ por una exponencial compleja que es manipulada por el desfase Q. Por \xFA\
+      ltimo se retorna la longitud del array de salida', [])"
     bus_sink: false
     bus_source: false
     bus_structure: null
@@ -1164,8 +1183,8 @@ blocks:
     state: true
 
 connections:
-- [analog_const_source_x_0, '0', epy_block_0, '1']
-- [analog_const_source_x_0, '0', epy_block_0_0, '1']
+- [analog_const_source_x_0, '0', epy_block_0, '0']
+- [analog_const_source_x_0, '0', epy_block_0_0, '0']
 - [analog_random_source_x_0, '0', blocks_char_to_float_0, '0']
 - [blocks_add_const_vxx_0, '0', blocks_multiply_const_vxx_0_0, '0']
 - [blocks_char_to_float_0, '0', blocks_add_const_vxx_0, '0']
@@ -1173,11 +1192,12 @@ connections:
 - [blocks_char_to_float_0, '0', virtual_sink_0_0, '0']
 - [blocks_multiply_const_vxx_0_0, '0', interp_fir_filter_xxx_0, '0']
 - [blocks_multiply_const_vxx_0_0, '0', virtual_sink_0_0, '0']
+- [blocks_multiply_const_vxx_0_1, '0', epy_block_0, '1']
+- [blocks_multiply_const_vxx_0_1, '0', epy_block_0_0, '1']
 - [epy_block_0, '0', virtual_sink_0_0_0_0, '0']
 - [epy_block_0_0, '0', virtual_sink_0_0_0_0_0, '0']
 - [epy_block_0_1, '0', blocks_multiply_const_vxx_0, '0']
-- [interp_fir_filter_xxx_0, '0', epy_block_0, '0']
-- [interp_fir_filter_xxx_0, '0', epy_block_0_0, '0']
+- [interp_fir_filter_xxx_0, '0', blocks_multiply_const_vxx_0_1, '0']
 - [interp_fir_filter_xxx_0, '0', epy_block_0_1, '0']
 - [interp_fir_filter_xxx_0, '0', virtual_sink_0_0_0, '0']
 - [virtual_source_0_0, '0', qtgui_time_sink_x_0_0, '0']

@@ -3,7 +3,7 @@ from gnuradio import gr
 import math
 
 class blk(gr.sync_block):  
-    """This block is a CE VCO or baseband VCO and works as following: ….."""
+    """This block is a CE VCO or baseband VCO and works as following: Este código sirve para modular una señal binaria, esta modulación consta de dos entradas, una es la señal de entrada A y la otra es el desfase Q. La modulación se realiza mediante la multiplicación de la entrada por una exponencial compleja que es manipulada por el desfase Q. Por último se retorna la longitud del array de salida"""
 
     def __init__(self,):  
         gr.sync_block.__init__(
