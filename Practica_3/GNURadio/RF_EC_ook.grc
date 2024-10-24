@@ -96,9 +96,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1246, 483]
+    coordinate: [1264, 480.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: h
   id: variable
   parameters:
@@ -667,7 +667,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [841, 750]
+    coordinate: [840, 736.0]
     rotation: 0
     state: true
 - name: qtgui_time_sink_x_0_0
@@ -1191,3 +1191,4 @@ connections:
 
 metadata:
   file_format: 1
+  grc_version: v3.11.0.0git-810-g1ecb8565
